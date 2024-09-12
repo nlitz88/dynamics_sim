@@ -2,9 +2,10 @@ import numpy as np
 import plotly.express as px
 
 from box_dynamics import BoxDynamics
+from plotting import plot_states
 
 # Initialize the box dynamics model
-box_dynamics = BoxDynamics()
+box_dynamics = BoxDynamics(surface_friction_coef=0.25)
 
 # Define initial state and control input
 x_k = np.array([0, 0, 0.0, 0.0])  # [p_x, p_y, v_x, v_y]
@@ -39,10 +40,13 @@ for i in range(100, 250):
 print(len(states))
 
 states = np.array(states)
-timesteps = np.arange(0, 250)
-fig = px.line(x=timesteps, y=states[:, 0], title="px (meters)")
-fig.add_scatter(x=timesteps, y=states[:, 0], mode="lines", name="px (meters)")
-fig.add_scatter(x=timesteps, y=states[:, 1], mode="lines", name="py (meters)")
-fig.add_scatter(x=timesteps, y=states[:, 2], mode="lines", name="vx (m/s)")
-fig.add_scatter(x=timesteps, y=states[:, 3], mode="lines", name="vy (m/s)")
+# timesteps = np.arange(0, 250)
+# fig = px.line(x=timesteps, y=states[:, 0], title="px (meters)")
+# fig.add_scatter(x=timesteps, y=states[:, 0], mode="lines", name="px (meters)")
+# fig.add_scatter(x=timesteps, y=states[:, 1], mode="lines", name="py (meters)")
+# fig.add_scatter(x=timesteps, y=states[:, 2], mode="lines", name="vx (m/s)")
+# fig.add_scatter(x=timesteps, y=states[:, 3], mode="lines", name="vy (m/s)")
+# fig.show()
+
+fig = plot_states(states, ["px (meters)", "py (meters)", "vx (m/s)", "vy (m/s)"])
 fig.show()
