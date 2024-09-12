@@ -47,7 +47,20 @@ class BoxDynamics(Dynamics):
         f_x, f_y = u_k
 
         # Compute acceleration (the core of the dynamics model / equations).
-        a_x = f_x - self._surface_friction_coef*(self._box_mass*self._gravity + -1*f_y)
+        # TODO: Update the dynamics for acceleration in the x direction so that
+        # the kinetic (sliding) friction is ONLY "on" when the box is moving.
+        # The current implementation has the kinetic friction "on" even when
+        # the box is at rest.
+        if v_x > 0.0:
+            a_x = f_x - self._surface_friction_coef * (self._box_mass * self._gravity + -1 * f_y)
+        else:
+            a_x = f_x
         a_y = 0
+
+        # Problem: the friction force should only slow down the box to a stop
+        # (I.e., cause an acceleration in the direction it is facing). It does
+        # do this, but then the box starts moving in the opposite direction. The
+        # friction force should not cause the box to move in the opposite
+        # direction. How can we fix this?
 
         return np.array([v_x, v_y, a_x, a_y])
