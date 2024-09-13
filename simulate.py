@@ -64,3 +64,36 @@ vis["box"].set_object(g.Box([0.1, 0.1, 0.1]), g.MeshLambertMaterial(color=0x0000
 for i in range(0, 250, 1):
     vis["box"].set_transform(tf.translation_matrix([states[i, 0], states[i, 1], 0]))
     time.sleep(TIMESTEP_LENGTH_S)
+
+# TODO: Come up with a better way of simulating forward given an arbitrary
+# Dynamics object. Above code is a bit hacky.
+
+# TODO: Think about how to make the simulation method able to accomodate any
+# arbitrary controller function. To do this, just think about what we are
+# requiring this to do.
+
+# I.e., the primary goal of the simulator is to see how the system state evolves
+# over time given a "ground truth" dynamics model and a controller. At each
+# timestep, the simulator should pass the current state into the controller
+# function and have it figure out what the control action should be. Then, we
+# take the current state and the control action and simulate the dynamics model
+# one timestep forward. We repeat this process for a specified number of
+# timesteps or until a stopping condition is met.
+
+# Maybe this could be a class that you could initialize with a particular
+# dynamics model and controller function, and maybe the parent class has built
+# in methods for meshcat visualization and plotting. It could have a function
+# called simulate that takes in the number of timesteps to simulate, timestep
+# length, and initial state (initial condition).
+
+# Maybe if the user has special simulation needs, they can inherit from the
+# parent class and implement their own simulate method. OR, similar to how the
+# user wll inherit from the Dynamics or Controller class, they can also inherit
+# from the Simulation class for each unique simulation scenario. 3D meshcat
+# scenes and geometry could be associated with that particular simulation
+# scenario as well.
+
+# OR, maybe we just end up writing a new simulation script for each scenario
+# we want, and then we can just use the plotting functions to visualize the data
+# and so forth. That might just be the fastest path to getting something working
+# for now without strangling us with too much complexity.
