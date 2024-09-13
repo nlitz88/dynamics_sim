@@ -1,11 +1,18 @@
+import time
 import numpy as np
 import plotly.express as px
 
 from box_dynamics import BoxDynamics
 from plotting import plot_states
 
+import meshcat
+import meshcat.geometry as g
+import meshcat.transformations as tf
+
 # Initialize the box dynamics model
-box_dynamics = BoxDynamics(surface_friction_coef=0.25)
+TIMESTEP_LENGTH_S = 0.01
+box_dynamics = BoxDynamics(surface_friction_coef=0.5,
+                           dt=TIMESTEP_LENGTH_S)
 
 # Define initial state and control input
 x_k = np.array([0, 0, 0.0, 0.0])  # [p_x, p_y, v_x, v_y]
@@ -50,3 +57,15 @@ states = np.array(states)
 
 fig = plot_states(states, ["px (meters)", "py (meters)", "vx (m/s)", "vy (m/s)"])
 fig.show()
+
+
+# Create a meshcat visualizer
+vis = meshcat.Visualizer()
+vis.open()
+
+# Create a box geometry
+vis["box"].set_object(g.Box([0.1, 0.1, 0.1]), g.MeshLambertMaterial(color=0x0000ff))
+
+for i in range(0, 250, 1):
+    vis["box"].set_transform(tf.translation_matrix([states[i, 0], states[i, 1], 0]))
+    time.sleep(TIMESTEP_LENGTH_S)
