@@ -1,10 +1,12 @@
-"""Simple 2D box being pushed by a force control input dynamics model example."""
+"""Simple 2D box being pushed by a 2D force (control input) dynamics model
+example.
+"""
 
 import numpy as np
 
-from dynamics import Dynamics
+from models.dynamics_model import DynamicsModel
 
-class BoxDynamics(Dynamics):
+class BoxDynamics(DynamicsModel):
     """Implementing dynamics model for a box being pushed on a table with
     surface friction.
     """

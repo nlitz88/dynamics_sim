@@ -1,8 +1,7 @@
 import time
 import numpy as np
-import plotly.express as px
 
-from box_dynamics import BoxDynamics
+from models.box_dynamics import BoxDynamics
 from plotting import plot_states
 
 import meshcat

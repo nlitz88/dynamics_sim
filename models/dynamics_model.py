@@ -1,4 +1,4 @@
-"""Module containing a dynamics base class"""
+"""Module containing a dynamics model base class"""
 
 
 # NOTE: An integrator is included in the Dynamics to give subclasses the
@@ -9,7 +9,7 @@
 
 import numpy as np
 
-class Dynamics:
+class DynamicsModel:
 
     def __init__(self, dt=0.01):
         """_summary_
