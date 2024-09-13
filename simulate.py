@@ -47,21 +47,16 @@ for i in range(100, 250):
 print(len(states))
 
 states = np.array(states)
-# timesteps = np.arange(0, 250)
-# fig = px.line(x=timesteps, y=states[:, 0], title="px (meters)")
-# fig.add_scatter(x=timesteps, y=states[:, 0], mode="lines", name="px (meters)")
-# fig.add_scatter(x=timesteps, y=states[:, 1], mode="lines", name="py (meters)")
-# fig.add_scatter(x=timesteps, y=states[:, 2], mode="lines", name="vx (m/s)")
-# fig.add_scatter(x=timesteps, y=states[:, 3], mode="lines", name="vy (m/s)")
-# fig.show()
 
+# Create graphs for each component of the state vector.
 fig = plot_states(states, ["px (meters)", "py (meters)", "vx (m/s)", "vy (m/s)"])
 fig.show()
-
 
 # Create a meshcat visualizer
 vis = meshcat.Visualizer()
 vis.open()
+vis.wait()
+print(f"Open the visualizer at the following URL: {vis.url()}")
 
 # Create a box geometry
 vis["box"].set_object(g.Box([0.1, 0.1, 0.1]), g.MeshLambertMaterial(color=0x0000ff))
