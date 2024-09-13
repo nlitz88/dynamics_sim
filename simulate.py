@@ -1,8 +1,13 @@
+"""NOTE: This is an example client / entrypoint script that depends on the
+dynamics_sim package. By all means possible, scripts that you invoke directly
+should not be included in the package itself.
+"""
+
 import time
 import numpy as np
 
-from models.box_dynamics import BoxDynamics
-from plotting import plot_states
+from dynamics_sim.models.box_dynamics import BoxDynamics
+from dynamics_sim.plotting import plot_states
 
 import meshcat
 import meshcat.geometry as g

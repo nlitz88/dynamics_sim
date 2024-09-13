@@ -4,7 +4,7 @@ example.
 
 import numpy as np
 
-from models.dynamics_model import DynamicsModel
+from dynamics_sim.models.dynamics_model import DynamicsModel
 
 class BoxDynamics(DynamicsModel):
     """Implementing dynamics model for a box being pushed on a table with
