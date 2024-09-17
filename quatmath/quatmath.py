@@ -4,9 +4,16 @@ representations.
 Based on Kevin Tracy's 16-745 (OCRL) recitation on attitude:
 https://www.youtube.com/watch?v=pXbu2YYBSmY&t=1329s
 
+Additionally, many of these dynamics and conventions are based on the "Planning
+with Attitude paper" here:
+https://rexlab.ri.cmu.edu/papers/planning_with_attitude.pdf
+
 The quaternion is represented as a 4-element numpy array in the form [w, x, y,
 z], where w is the scalar part and x, y, z are the vector part.
 """
+
+# NOTE: This library maybe be pointeless if you have access to something like
+# transforms3d.
 
 import numpy as np
 
@@ -158,3 +165,15 @@ def Q(q: np.ndarray) -> np.ndarray:
         np.ndarray: The rotation matrix corresponding to the given quaternion q.
     """
     return H.T @ R(q).T @ L(q) @ H
+
+def G(q: np.ndarray) -> np.ndarray:
+    """Compute the attitude Jacobian matrix given a quaternion q
+    
+    Args:
+        q (np.ndarray): A quaternion in the form [w, x, y, z].
+    
+    Returns:
+        np.ndarray: The attitude Jacobian matrix corresponding to the given
+        quaternion q.
+    """
+    return np.dot(L(q), H)
